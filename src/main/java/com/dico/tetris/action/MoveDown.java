@@ -1,6 +1,5 @@
 package com.dico.tetris.action;
 
-import com.dico.tetris.Block;
 import com.dico.tetris.GameBoard;
 import com.dico.tetris.Tetromino;
 
@@ -22,6 +21,16 @@ public class MoveDown extends Movement {
     }
 
     @Override
+    GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
+    @Override
+    int[][] getTetromino() {
+        return tetromino.getBlocks();
+    }
+
+    @Override
     public int getRow() {
         return tetromino.pointerRow + 1;
     }
@@ -40,30 +49,20 @@ public class MoveDown extends Movement {
         return true;
     }
 
-    private void resetTetromino() {
-        tetromino.setRandomTetromino();
-        gameBoard.clearCompleteRows();
-        tetromino.pointerRow = 0;
-        tetromino.pointerCol = 4;
-    }
-
-    private boolean overflowBottom() {
-        return tetromino.getHeight() == gameBoard.getHeight();
-    }
-
     @Override
     public void move() {
         ++tetromino.pointerRow;
         gameBoard.update();
     }
 
-    @Override
-    int[][] getTetromino() {
-        return tetromino.getBlocks();
+    private boolean overflowBottom() {
+        return tetromino.getHeight() == gameBoard.getHeight();
     }
 
-    @Override
-    GameBoard getGameBoard() {
-        return gameBoard;
+    private void resetTetromino() {
+        tetromino.setRandomTetromino();
+        gameBoard.clearCompleteRows();
+        tetromino.pointerRow = 0;
+        tetromino.pointerCol = 4;
     }
 }

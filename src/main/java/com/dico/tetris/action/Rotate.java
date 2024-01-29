@@ -9,10 +9,12 @@ public class Rotate extends Movement {
     private final GameBoard gameBoard;
     private final Tetromino tetromino;
     private int[][] rotatedBlocks;
+
     private Rotate(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         this.tetromino = gameBoard.getTetromino();
     }
+
     public static Move getInstance(GameBoard gameBoard) {
         if (instance == null) {
             instance = new Rotate(gameBoard);
@@ -53,12 +55,12 @@ public class Rotate extends Movement {
     }
 
     @Override
-    int[][] getTetromino() {
-        return rotatedBlocks;
+    GameBoard getGameBoard() {
+        return gameBoard;
     }
 
     @Override
-    GameBoard getGameBoard() {
-        return gameBoard;
+    int[][] getTetromino() {
+        return rotatedBlocks;
     }
 }

@@ -1,6 +1,5 @@
 package com.dico.tetris.action;
 
-import com.dico.tetris.Block;
 import com.dico.tetris.GameBoard;
 import com.dico.tetris.Tetromino;
 
@@ -36,23 +35,23 @@ public class MoveLeft extends Movement {
         return !overflowLeft() && !hasCollision();
     }
 
-    private boolean overflowLeft() {
-        return tetromino.pointerCol == 0;
-    }
-
     @Override
     public void move() {
         --tetromino.pointerCol;
         gameBoard.update();
     }
 
-    @Override
-    int[][] getTetromino() {
-        return tetromino.getBlocks();
+    private boolean overflowLeft() {
+        return tetromino.pointerCol == 0;
     }
 
     @Override
     GameBoard getGameBoard() {
         return gameBoard;
+    }
+
+    @Override
+    int[][] getTetromino() {
+        return tetromino.getBlocks();
     }
 }

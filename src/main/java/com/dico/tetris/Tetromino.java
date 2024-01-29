@@ -26,11 +26,12 @@ public class Tetromino {
         return getBlock(i, j) == Block.OCCUPIED;
     }
 
-    public Color getColor() {
-        return this.color;
-    }
     public int getBlock(int i, int j) {
         return this.blocks[i][j];
+    }
+
+    public Color getColor() {
+        return this.color;
     }
 
     public int[][] getBlocks() {
@@ -44,6 +45,7 @@ public class Tetromino {
     public int getWidth() {
         return pointerCol + blocks[0].length;
     }
+
     public int getHeight() {
         return pointerRow + blocks.length;
     }

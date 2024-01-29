@@ -2,12 +2,8 @@ package com.dico.tetris.action;
 
 import com.dico.tetris.Block;
 import com.dico.tetris.GameBoard;
-import com.dico.tetris.Tetromino;
 
 public abstract class Movement implements Move {
-
-    abstract int[][] getTetromino();
-    abstract GameBoard getGameBoard();
 
     public boolean hasCollision() {
         GameBoard gameBoard = getGameBoard();
@@ -27,4 +23,8 @@ public abstract class Movement implements Move {
         }
         return false;
     }
+
+    abstract GameBoard getGameBoard();
+
+    abstract int[][] getTetromino();
 }

@@ -2,7 +2,6 @@ package com.dico.tetris.action;
 
 import com.dico.tetris.GameBoard;
 import com.dico.tetris.Tetromino;
-import com.dico.tetris.Block;
 
 public class MoveRight extends Movement {
 
@@ -48,12 +47,12 @@ public class MoveRight extends Movement {
     }
 
     @Override
-    int[][] getTetromino() {
-        return tetromino.getBlocks();
+    GameBoard getGameBoard() {
+        return gameBoard;
     }
 
     @Override
-    GameBoard getGameBoard() {
-        return gameBoard;
+    int[][] getTetromino() {
+        return tetromino.getBlocks();
     }
 }
