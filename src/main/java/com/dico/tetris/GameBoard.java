@@ -1,5 +1,9 @@
 package com.dico.tetris;
 
+import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
+import java.util.stream.IntStream;
+
 public class GameBoard {
 
     private final int[][] board;
@@ -10,30 +14,24 @@ public class GameBoard {
         this.tetromino = tetromino;
     }
 
-
-
     public void update() {
-        int[][] blocks = tetromino.getBlocks();
-        for (int i = 0; i < blocks.length; i++) {
-            for (int j = 0; j < blocks[i].length; j++) {
-                if (board[tetromino.pointerRow +i][tetromino.pointerCol +j] == 0
-                        && blocks[i][j] == 1) {
-                    board[tetromino.pointerRow +i][tetromino.pointerCol +j] = blocks[i][j];
-                }
-            }
-        }
+        processBlocks(
+                this::isBlockBoardFree,
+                this::setBlockWithTetrominoValue);
     }
 
     public void clearPreviousTetromino() {
+        processBlocks(
+                this::isBlockBoardOccupied,
+                this::setBlockWithFreeBlock);
+    }
+
+    public void processBlocks(BiPredicate<Integer, Integer> predicate, BiConsumer<Integer, Integer> action) {
         int[][] blocks = tetromino.getBlocks();
-        for (int i = 0; i < blocks.length; i++) {
-            for (int j = 0; j < blocks[i].length; j++) {
-                if (board[tetromino.pointerRow + i][tetromino.pointerCol + j] == 1
-                        && blocks[i][j] == 1) {
-                    board[tetromino.pointerRow + i][tetromino.pointerCol + j] = 0;
-                }
-            }
-        }
+        IntStream.range(0, blocks.length)
+                .forEach(i -> IntStream.range(0, blocks[i].length)
+                        .filter((j) -> predicate.test(i, j) && tetromino.isBlockOccupied(i, j))
+                        .forEach((j) -> action.accept(i, j)));
     }
 
     public void clearCompleteRows() {
@@ -54,6 +52,14 @@ public class GameBoard {
         }
     }
 
+    public boolean isBlockBoardFree(int i, int j) {
+        return board[tetromino.pointerRow + i][tetromino.pointerCol + j] == Block.FREE;
+    }
+
+    public boolean isBlockBoardOccupied(int i, int j) {
+        return board[tetromino.pointerRow + i][tetromino.pointerCol + j] == Block.OCCUPIED;
+    }
+
     public Tetromino getTetromino() {
         return tetromino;
     }
@@ -64,6 +70,19 @@ public class GameBoard {
     public int getHeight() {
         return getBoard().length;
     }
+
+    public void setBlockWithFreeBlock(int i, int j) {
+        setBlockFromTetrominoPosition(i, j, Block.FREE);
+    }
+
+    public void setBlockWithTetrominoValue(int i, int j) {
+        setBlockFromTetrominoPosition(i, j, tetromino.getBlock(i, j));
+    }
+
+    public void setBlockFromTetrominoPosition(int i, int j, int value) {
+        board[tetromino.pointerRow + i][tetromino.pointerCol + j] = value;
+    }
+
     public int getBlock(int row, int col) {
         return board[row][col];
     }

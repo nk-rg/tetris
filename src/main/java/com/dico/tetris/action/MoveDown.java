@@ -58,8 +58,8 @@ public class MoveDown extends Movement {
     }
 
     @Override
-    Tetromino getTetromino() {
-        return tetromino;
+    int[][] getTetromino() {
+        return tetromino.getBlocks();
     }
 
     @Override

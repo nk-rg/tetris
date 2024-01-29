@@ -6,13 +6,13 @@ import com.dico.tetris.Tetromino;
 
 public abstract class Movement implements Move {
 
-    abstract Tetromino getTetromino();
+    abstract int[][] getTetromino();
     abstract GameBoard getGameBoard();
 
     public boolean hasCollision() {
         GameBoard gameBoard = getGameBoard();
         gameBoard.clearPreviousTetromino();
-        int[][] tetrominoBlocks = getTetromino().getBlocks();
+        int[][] tetrominoBlocks = getTetromino();
         for (int i = 0; i < tetrominoBlocks.length; i++) {
             for (int j = 0; j < tetrominoBlocks[i].length; j++) {
                 int row = getRow() + i;
