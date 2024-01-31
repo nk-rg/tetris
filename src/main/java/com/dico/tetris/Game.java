@@ -17,7 +17,6 @@ public class Game {
     private static final int BOARD_ROWS = 20;
     private static final int BOARD_COLS = 10;
     private static final int BLOCK_SIZE = 30;
-    private final Tetromino tetromino;
     private final GameBoard gameBoard;
     private final Move moveDown;
     private final Move moveRight;
@@ -30,8 +29,7 @@ public class Game {
     Label lblScore;
 
     public Game() {
-        this.tetromino = new Tetromino();
-        this.gameBoard = new GameBoard(BOARD_ROWS, BOARD_COLS, tetromino);
+        this.gameBoard = new GameBoard(BOARD_ROWS, BOARD_COLS);
         this.moveDown = MoveDown.getInstance(gameBoard);
         this.moveRight = MoveRight.getInstance(gameBoard);
         this.moveLeft = MoveLeft.getInstance(gameBoard);
@@ -45,13 +43,9 @@ public class Game {
     private void updateGridPane() {
         for (int row = 0; row < BOARD_ROWS; row++) {
             for (int col = 0; col < BOARD_COLS; col++) {
-                int block = gameBoard.getBlock(row, col);
+                Block block = gameBoard.getBlock(row, col);
                 Rectangle rectangle = (Rectangle) gridPane.getChildren().get(row * BOARD_COLS + col);
-                if (block == Block.FREE) {
-                    rectangle.setFill(Color.WHITE);
-                } else if (Color.WHITE.equals(rectangle.getFill())) {
-                    rectangle.setFill(tetromino.getColor());
-                }
+                rectangle.setFill(block.color());
             }
         }
     }

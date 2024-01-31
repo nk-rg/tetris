@@ -1,5 +1,6 @@
 package com.dico.tetris.action;
 
+import com.dico.tetris.Block;
 import com.dico.tetris.GameBoard;
 import com.dico.tetris.Tetromino;
 import com.dico.tetris.util.MatrixUtil;
@@ -8,7 +9,7 @@ public class Rotate extends Movement {
     private static Rotate instance;
     private final GameBoard gameBoard;
     private final Tetromino tetromino;
-    private int[][] rotatedBlocks;
+    private Block[][] rotatedBlocks;
 
     private Rotate(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -60,7 +61,7 @@ public class Rotate extends Movement {
     }
 
     @Override
-    int[][] getTetromino() {
+    Block[][] getTetromino() {
         return rotatedBlocks;
     }
 }

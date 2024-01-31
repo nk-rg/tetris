@@ -1,5 +1,6 @@
 package com.dico.tetris.action;
 
+import com.dico.tetris.Block;
 import com.dico.tetris.GameBoard;
 import com.dico.tetris.Tetromino;
 
@@ -26,7 +27,7 @@ public class MoveDown extends Movement {
     }
 
     @Override
-    int[][] getTetromino() {
+    Block[][] getTetromino() {
         return tetromino.getBlocks();
     }
 

@@ -4,12 +4,13 @@ import javafx.scene.paint.Color;
 
 import java.util.Random;
 
+import static com.dico.tetris.BlockFactory.createBlock;
+
 public class Tetromino {
     private static final Random random = new Random();
     public int pointerRow = 0;
     public int pointerCol = 4;
-    public Color color;
-    private int[][] blocks;
+    private Block[][] blocks;
 
     public Tetromino() {
         setRandomTetromino();
@@ -19,26 +20,22 @@ public class Tetromino {
         int index = random.nextInt(7);
         Figure figure = Figure.values()[index];
         this.blocks = figure.blocks;
-        this.color = figure.color;
     }
 
     public boolean isBlockOccupied(int i, int j) {
-        return getBlock(i, j) == Block.OCCUPIED;
+        return !getBlock(i, j).isWhite();
     }
 
-    public int getBlock(int i, int j) {
+    public Block getBlock(int i, int j) {
         return this.blocks[i][j];
     }
 
-    public Color getColor() {
-        return this.color;
-    }
 
-    public int[][] getBlocks() {
+    public Block[][] getBlocks() {
         return this.blocks;
     }
 
-    public void setBlocks(int[][] blocks) {
+    public void setBlocks(Block[][] blocks) {
         this.blocks = blocks;
     }
 
@@ -51,55 +48,53 @@ public class Tetromino {
     }
 
     enum Figure {
-        I(new int[][]
+        I(new Block[][]
                 {
-                        {1},
-                        {1},
-                        {1},
-                        {1}
-                }, Color.CYAN),
-        J(new int[][]
+                        {createBlock(Color.CYAN)},
+                        {createBlock(Color.CYAN)},
+                        {createBlock(Color.CYAN)},
+                        {createBlock(Color.CYAN)}
+                }),
+        J(new Block[][]
                 {
-                        {0, 1},
-                        {0, 1},
-                        {1, 1}
-                }, Color.BLUE),
-        L(new int[][]
+                        {createBlock(Color.WHITE), createBlock(Color.BLUE)},
+                        {createBlock(Color.WHITE), createBlock(Color.BLUE)},
+                        {createBlock(Color.BLUE), createBlock(Color.BLUE)}
+                }),
+        L(new Block[][]
                 {
-                        {1, 0},
-                        {1, 0},
-                        {1, 1}
-                }, Color.DARKORANGE),
-        O(new int[][]
+                        {createBlock(Color.DARKORANGE), createBlock(Color.WHITE)},
+                        {createBlock(Color.DARKORANGE), createBlock(Color.WHITE)},
+                        {createBlock(Color.DARKORANGE), createBlock(Color.DARKORANGE)}
+                }),
+        O(new Block[][]
                 {
-                        {1, 1},
-                        {1, 1}
-                }, Color.YELLOW.brighter()),
-        T(new int[][]
+                        {createBlock(Color.YELLOW.brighter()), createBlock(Color.YELLOW.brighter())},
+                        {createBlock(Color.YELLOW.brighter()), createBlock(Color.YELLOW.brighter())}
+                }),
+        T(new Block[][]
                 {
-                        {1, 1, 1},
-                        {0, 1, 0}
-                }, Color.MEDIUMPURPLE),
-        S(new int[][]
+                        {createBlock(Color.MEDIUMPURPLE), createBlock(Color.MEDIUMPURPLE), createBlock(Color.MEDIUMPURPLE)},
+                        {createBlock(Color.WHITE), createBlock(Color.MEDIUMPURPLE), createBlock(Color.WHITE)}
+                }),
+        S(new Block[][]
                 {
-                        {0, 1, 1},
-                        {1, 1, 0}
-                }, Color.LIMEGREEN),
-        Z(new int[][]
+                        {createBlock(Color.WHITE), createBlock(Color.LIMEGREEN), createBlock(Color.LIMEGREEN)},
+                        {createBlock(Color.LIMEGREEN), createBlock(Color.LIMEGREEN), createBlock(Color.WHITE)}
+                }),
+        Z(new Block[][]
                 {
-                        {1, 1, 0},
-                        {0, 1, 1}
-                }, Color.RED);
+                        {createBlock(Color.RED), createBlock(Color.RED), createBlock(Color.WHITE)},
+                        {createBlock(Color.WHITE), createBlock(Color.RED), createBlock(Color.RED)}
+                });
 
-        private final int[][] blocks;
-        private final Color color;
+        private final Block[][] blocks;
 
-        Figure(int[][] blocks, Color color) {
+        Figure(Block[][] blocks) {
             this.blocks = blocks;
-            this.color = color;
         }
 
-        public int[][] getBlocks() {
+        public Block[][] getBlocks() {
             return this.blocks;
         }
     }

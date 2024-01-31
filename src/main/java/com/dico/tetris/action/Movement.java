@@ -8,14 +8,14 @@ public abstract class Movement implements Move {
     public boolean hasCollision() {
         GameBoard gameBoard = getGameBoard();
         gameBoard.clearPreviousTetromino();
-        int[][] tetrominoBlocks = getTetromino();
+        Block[][] tetrominoBlocks = getTetromino();
         for (int i = 0; i < tetrominoBlocks.length; i++) {
             for (int j = 0; j < tetrominoBlocks[i].length; j++) {
                 int row = getRow() + i;
                 int col = getCol() + j;
-                int boardBlock = gameBoard.getBoard()[row][col];
-                int tetrominoBlock = tetrominoBlocks[i][j];
-                if (boardBlock == Block.OCCUPIED && tetrominoBlock == Block.OCCUPIED) {
+                Block boardBlock = gameBoard.getBoard()[row][col];
+                Block tetrominoBlock = tetrominoBlocks[i][j];
+                if (!boardBlock.isWhite() && !tetrominoBlock.isWhite()) {
                     gameBoard.update();
                     return true;
                 }
@@ -26,5 +26,5 @@ public abstract class Movement implements Move {
 
     abstract GameBoard getGameBoard();
 
-    abstract int[][] getTetromino();
+    abstract Block[][] getTetromino();
 }
