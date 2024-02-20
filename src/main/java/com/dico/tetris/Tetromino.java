@@ -22,14 +22,13 @@ public class Tetromino {
         this.blocks = figure.blocks;
     }
 
-    public boolean isBlockOccupied(int i, int j) {
+    public boolean hasBlockColor(int i, int j) {
         return !getBlock(i, j).isWhite();
     }
 
     public Block getBlock(int i, int j) {
         return this.blocks[i][j];
     }
-
 
     public Block[][] getBlocks() {
         return this.blocks;
@@ -50,22 +49,17 @@ public class Tetromino {
     enum Figure {
         I(new Block[][]
                 {
-                        {createBlock(Color.CYAN)},
-                        {createBlock(Color.CYAN)},
-                        {createBlock(Color.CYAN)},
-                        {createBlock(Color.CYAN)}
+                        {createBlock(Color.CYAN), createBlock(Color.CYAN), createBlock(Color.CYAN), createBlock(Color.CYAN)},
                 }),
         J(new Block[][]
                 {
-                        {createBlock(Color.WHITE), createBlock(Color.BLUE)},
-                        {createBlock(Color.WHITE), createBlock(Color.BLUE)},
-                        {createBlock(Color.BLUE), createBlock(Color.BLUE)}
+                        {createBlock(Color.BLUE), createBlock(Color.WHITE), createBlock(Color.WHITE)},
+                        {createBlock(Color.BLUE), createBlock(Color.BLUE), createBlock(Color.BLUE)}
                 }),
         L(new Block[][]
                 {
-                        {createBlock(Color.DARKORANGE), createBlock(Color.WHITE)},
-                        {createBlock(Color.DARKORANGE), createBlock(Color.WHITE)},
-                        {createBlock(Color.DARKORANGE), createBlock(Color.DARKORANGE)}
+                        {createBlock(Color.WHITE), createBlock(Color.WHITE), createBlock(Color.DARKORANGE)},
+                        {createBlock(Color.DARKORANGE), createBlock(Color.DARKORANGE), createBlock(Color.DARKORANGE)}
                 }),
         O(new Block[][]
                 {

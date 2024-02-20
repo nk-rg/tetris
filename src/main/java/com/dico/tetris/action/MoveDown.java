@@ -8,10 +8,12 @@ public class MoveDown extends Movement {
     private static MoveDown instance;
     private final GameBoard gameBoard;
     private final Tetromino tetromino;
+    private final Tetromino nextTetromino;
 
     private MoveDown(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         this.tetromino = gameBoard.getTetromino();
+        this.nextTetromino = gameBoard.getNextTetromino();
     }
 
     public static Move getInstance(GameBoard gameBoard) {
@@ -61,9 +63,12 @@ public class MoveDown extends Movement {
     }
 
     private void resetTetromino() {
-        tetromino.setRandomTetromino();
+        tetromino.setBlocks(nextTetromino.getBlocks());
+        nextTetromino.setRandomTetromino();
         gameBoard.clearCompleteRows();
         tetromino.pointerRow = 0;
         tetromino.pointerCol = 4;
+        gameBoard.getGame().updateGpNext();
+        gameBoard.getGame().checkGameOver();
     }
 }
